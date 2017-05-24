@@ -1,5 +1,5 @@
 class Fighter {
-  constructor(name, power, health) {
+  constructor(name, power, health = 20000) {
     this.name = name;
     this.power = power;
     this.health = health;
@@ -7,6 +7,8 @@ class Fighter {
 
   setDamage(damage) {
     this.health = this.health - damage
+    if(this.health < 0)
+      this.health = 0
     console.log(`${this.name} health: ${this.health}`);
   }
 
@@ -24,9 +26,9 @@ class ImprovedFighter extends Fighter {
 
 let fight = (fighter, improvedFighter, ...points) => {
   for (var i = 0; i < points.length; i++) {
-    if (fighter.health <= 0) {
+    if (fighter.health === 0) {
       return console.log(`Expelliarmuuus, ${improvedFighter.name} win`);
-    } else if (improvedFighter.health <= 0) {
+    } else if (improvedFighter.health === 0) {
       return console.log(`Avada Kedavraaaaaa, ${fighter.name} win`);
     } else {
       fighter.hit(improvedFighter, points[i]);
@@ -35,7 +37,7 @@ let fight = (fighter, improvedFighter, ...points) => {
   }
 }
 
-const LordVoldemort = new Fighter('LordVoldemort', 14, 12000);
-const GarryPotter = new ImprovedFighter('GarryPotter', 15, 10000);
+const LordVoldemort = new Fighter('Lord Voldemort', 14, 12100);
+const GarryPotter = new ImprovedFighter('Garry Potter', 15, 10000);
 
 fight(LordVoldemort, GarryPotter, 35,40,58,102,12,22,10,23,45,28,22,20,23,12,45)
